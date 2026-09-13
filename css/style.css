@@ -432,7 +432,17 @@ a { color: var(--fg); text-decoration-color: var(--fg); }
   margin-bottom: 12px;
   background: #eee;
 }
-.portfolio-detail-content .p-desc { color: var(--fg-dim); margin: 16px 0 32px; }
+.portfolio-detail-content .p-desc { color: var(--fg-dim); margin: 16px 0 32px; white-space: pre-line; }
+.portfolio-detail-content .p-link {
+  display: inline-block;
+  margin: -16px 0 32px;
+  font-size: 0.95rem;
+  text-decoration: none;
+  color: var(--fg);
+  border-bottom: 1px solid var(--fg);
+  padding-bottom: 2px;
+}
+.portfolio-detail-content .p-link:hover { opacity: 0.75; }
 
 /* ===== Commission form — filled out directly on the user's own form photo =====
    Coordinates below are measured from assets/img/commission-form.png's own

@@ -32,6 +32,7 @@ const translations = {
   "portfolio.heading": { en: "Portfolio", ja: "ポートフォリオ" },
   "portfolio.back": { en: "← Back to list", ja: "← 一覧に戻る" },
   "portfolio.other": { en: "More work", ja: "他の作品" },
+  "portfolio.viewLink": { en: "Listen / View →", ja: "視聴する →" },
   "portfolio.viewAll": { en: "See more portfolio →", ja: "もっと見る →" },
   "portfolio.gallery.back": { en: "← Atamaqtrs", ja: "← Atamaqtrs" },
 

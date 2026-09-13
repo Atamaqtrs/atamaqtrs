@@ -5,7 +5,10 @@ let portfolioItems = [];
 
 async function loadPortfolio() {
   try {
-    const res = await fetch("data/portfolio.json");
+    // GitHub Pages' CDN caches static files regardless of fetch's cache mode, so
+    // a plain fetch can serve a stale copy after portfolio.json is edited. A
+    // cache-busting query forces every page load to get the current file.
+    const res = await fetch(`data/portfolio.json?_=${Date.now()}`);
     portfolioItems = await res.json();
   } catch (err) {
     console.error("Failed to load portfolio.json", err);
@@ -19,16 +22,27 @@ function currentLang() {
   return document.documentElement.lang || "en";
 }
 
+// Portfolio text comes from data/portfolio.json (free-text titles/descriptions),
+// but gets inserted via innerHTML — escape it so stray "<"/">" (e.g. a title
+// quoted like <Show Name>) can't be swallowed as an HTML tag or, worse, injected.
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, (c) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  }[c]));
+}
+
 function portfolioCard(item, small) {
   const lang = currentLang();
+  const title = escapeHtml(item.title[lang] || item.title.en);
+  const category = escapeHtml(item.category[lang] || item.category.en);
   const card = document.createElement("a");
   card.href = `#/portfolio/${item.id}`;
   card.className = "portfolio-card";
   card.innerHTML = `
-    <img src="${item.thumbnail}" alt="${item.title[lang] || item.title.en}" loading="lazy" />
+    <img src="${item.thumbnail}" alt="${title}" loading="lazy" />
     <figcaption>
-      <div class="p-title">${item.title[lang] || item.title.en}</div>
-      <div class="p-meta">${item.year} · ${item.category[lang] || item.category.en}</div>
+      <div class="p-title">${title}</div>
+      <div class="p-meta">${escapeHtml(item.year)} · ${category}</div>
     </figcaption>
   `;
   return card;
@@ -59,10 +73,16 @@ function renderPortfolioDetail(id) {
   document.getElementById("portfolio")?.scrollIntoView({ behavior: "auto" });
 
   const content = detail.querySelector(".portfolio-detail-content");
+  const title = escapeHtml(item.title[lang] || item.title.en);
+  const description = escapeHtml(item.description[lang] || item.description.en);
+  const linkHtml = item.link
+    ? `<a class="p-link" href="${escapeHtml(item.link)}" target="_blank" rel="noopener noreferrer">${escapeHtml(t("portfolio.viewLink", lang))}</a>`
+    : "";
   content.innerHTML = `
-    ${item.images.map((src) => `<img src="${src}" alt="${item.title[lang] || item.title.en}" />`).join("")}
-    <h3>${item.title[lang] || item.title.en}</h3>
-    <p class="p-desc">${item.description[lang] || item.description.en}</p>
+    ${item.images.map((src) => `<img src="${src}" alt="${title}" />`).join("")}
+    <h3>${title}</h3>
+    <p class="p-desc">${description}</p>
+    ${linkHtml}
   `;
 
   const otherGrid = document.getElementById("portfolio-other-grid");

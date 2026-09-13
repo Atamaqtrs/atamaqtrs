@@ -1,5 +1,21 @@
 [
   {
+    "id": "vibe-lie-vampire-ost",
+    "year": "2025",
+    "category": { "en": "OST Arrangement", "ja": "OST編曲" },
+    "title": {
+      "en": "Naver VIBE Original — \"Lie, Where Is the Vampire?\" OST",
+      "ja": "Naver VIBE オリジナル『嘘でしょ、吸血鬼なんているわけない』OST"
+    },
+    "thumbnail": "assets/portfolio/vibe-lie-vampire-ost.avif",
+    "images": ["assets/portfolio/vibe-lie-vampire-ost.avif"],
+    "description": {
+      "en": "Arranged the insert OST for the Naver VIBE Original \"Lie, Where Is the Vampire?\"\nOriginal webtoon: \"Lie, Where Is the Vampire?\" / Story Soop Co., Ltd.\nProduced by: Dream Engine Studio Co., Ltd., Blue by Blue Co., Ltd.",
+      "ja": "Naver VIBEオリジナル『嘘でしょ、吸血鬼なんているわけない』の挿入OSTを編曲。\n原作：ウェブトゥーン『嘘でしょ、吸血鬼なんているわけない』／株式会社Story Soop\n制作：Dream Engine Studio株式会社、Blue by Blue株式会社"
+    },
+    "link": "https://vibe.naver.com/app/clipEnd?contentId=CH_13243"
+  },
+  {
     "id": "work-01",
     "year": "2024",
     "category": { "en": "Category", "ja": "カテゴリー" },

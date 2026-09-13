@@ -16,51 +16,60 @@
     "link": "https://vibe.naver.com/app/clipEnd?contentId=CH_13243"
   },
   {
-    "id": "work-01",
-    "year": "2024",
-    "category": { "en": "Category", "ja": "カテゴリー" },
-    "title": { "en": "Portfolio Title 1", "ja": "ポートフォリオタイトル1" },
-    "thumbnail": "assets/portfolio/placeholder.svg",
-    "images": ["assets/portfolio/placeholder.svg"],
+    "id": "oogypark-run-into-u",
+    "year": "2025",
+    "category": { "en": "Arrangement", "ja": "編曲" },
+    "title": { "en": "oogypark — \"run & into u\" (Arrangement)", "ja": "oogypark ―「run & into u」（編曲）" },
+    "thumbnail": "assets/portfolio/oogypark-run-into-u.avif",
+    "images": ["assets/portfolio/oogypark-run-into-u.avif"],
     "description": {
-      "en": "Write a description of this work here.",
-      "ja": "この作品についての説明をここに書いてください。"
-    }
+      "en": "Arranged \"run & into u,\" a single by artist oogypark.\nVocal: oogypark\nProduce: oogypark, 2H, No.21\nLyrics: oogypark, 2H, No.21\nArrange: oogypark, Atama, No.21",
+      "ja": "アーティストoogyparkのシングル「run & into u」を編曲しました。\nVocal: oogypark\nProduce: oogypark, 2H, No.21\nLyrics: oogypark, 2H, No.21\nArrange: oogypark, Atama, No.21"
+    },
+    "link": "https://open.spotify.com/track/10XGlhoUASV3m90HfomB55?si=f03737f1b9d54598"
   },
   {
-    "id": "work-02",
-    "year": "2024",
-    "category": { "en": "Category", "ja": "カテゴリー" },
-    "title": { "en": "Portfolio Title 2", "ja": "ポートフォリオタイトル2" },
-    "thumbnail": "assets/portfolio/placeholder.svg",
-    "images": ["assets/portfolio/placeholder.svg"],
+    "id": "aohana-inazuma-drive-2",
+    "year": "2025",
+    "category": { "en": "Mix / Master", "ja": "ミックス/マスタリング" },
+    "title": {
+      "en": "J-pop Cover Band \"Aohana\" — \"Inazuma Drive Ⅱ\" (Mix/Master)",
+      "ja": "J-popカバーバンド「アオハナ」―「稲妻ドライブⅡ」（ミックス/マスタリング）"
+    },
+    "thumbnail": "assets/portfolio/aohana-inazuma-drive-2.png",
+    "images": ["assets/portfolio/aohana-inazuma-drive-2.png"],
     "description": {
-      "en": "Write a description of this work here.",
-      "ja": "この作品についての説明をここに書いてください。"
-    }
+      "en": "Mixed and mastered the live track \"Inazuma Drive Ⅱ\" by J-pop cover band \"Aohana.\"",
+      "ja": "J-popカバーバンド「アオハナ」のライブトラック「稲妻ドライブⅡ」をミックス/マスタリングしました。"
+    },
+    "link": "https://www.youtube.com/watch?v=fACETB0gdQM&t=2s"
   },
   {
-    "id": "work-03",
-    "year": "2023",
-    "category": { "en": "Category", "ja": "カテゴリー" },
-    "title": { "en": "Portfolio Title 3", "ja": "ポートフォリオタイトル3" },
-    "thumbnail": "assets/portfolio/placeholder.svg",
-    "images": ["assets/portfolio/placeholder.svg"],
+    "id": "requiem-ave-mujica-symbol1",
+    "year": "2026",
+    "category": { "en": "Mix / Master", "ja": "ミックス/マスタリング" },
+    "title": {
+      "en": "\"Symbol I: △\" — Ave Mujica Band Cover by Re:¿uiem (Mix/Master)",
+      "ja": "「Symbol I: △」― Ave Mujica バンドカバー by Re:¿uiem（ミックス/マスタリング）"
+    },
+    "thumbnail": "assets/portfolio/requiem-ave-mujica-symbol1.png",
+    "images": ["assets/portfolio/requiem-ave-mujica-symbol1.png"],
     "description": {
-      "en": "Write a description of this work here.",
-      "ja": "この作品についての説明をここに書いてください。"
-    }
+      "en": "\"Symbol I: △\" — Ave Mujica, covered by Re:¿uiem.\nMix & Master by Atamaqtrs.",
+      "ja": "「Symbol I: △」― Ave Mujica、Re:¿uiemによるバンドカバー。\nMix & Master by Atamaqtrs."
+    },
+    "link": "https://www.youtube.com/watch?v=X-FCX20ViME"
   },
   {
-    "id": "work-04",
-    "year": "2023",
-    "category": { "en": "Category", "ja": "カテゴリー" },
-    "title": { "en": "Portfolio Title 4", "ja": "ポートフォリオタイトル4" },
-    "thumbnail": "assets/portfolio/placeholder.svg",
-    "images": ["assets/portfolio/placeholder.svg"],
+    "id": "summer-bang-2026",
+    "year": "2026",
+    "category": { "en": "Stage Direction", "ja": "舞台演出" },
+    "title": { "en": "2026 Summer BanG! — Stage Direction", "ja": "2026 Summer BanG! ― 舞台演出" },
+    "thumbnail": "assets/portfolio/summer-bang-2026.jpg",
+    "images": ["assets/portfolio/summer-bang-2026.jpg"],
     "description": {
-      "en": "Write a description of this work here.",
-      "ja": "この作品についての説明をここに書いてください。"
+      "en": "Directed the stage production and led sound engineering for 2026 Summer BanG!",
+      "ja": "2026 Summer BanG! の舞台企画およびサウンドエンジニアリングディレクションを担当しました。"
     }
   }
 ]

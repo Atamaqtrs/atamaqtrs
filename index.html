@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Atamaqtrs</title>
+<meta name="description" content="Atamaqtrs — music portfolio &amp; commission" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/vcr-osd-mono" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=13" />
+</head>
+<body>
+
+<!-- Language switcher (fixed, always visible) -->
+<div id="lang-switch" aria-label="Language switch">
+  <button type="button" data-lang-btn="en">EN</button>
+  <button type="button" data-lang-btn="ja">JA</button>
+</div>
+
+<!-- Side nav dots -->
+<nav id="dot-nav" aria-label="Section navigation">
+  <a href="#hero" data-dot></a>
+  <a href="#about" data-dot></a>
+  <a href="#music" data-dot></a>
+  <a href="#portfolio" data-dot></a>
+  <a href="#commission" data-dot></a>
+</nav>
+
+<main id="scroll-container">
+
+  <!-- ============ SECTION 1 — HERO ============ -->
+  <section id="hero" class="panel">
+    <div class="hero-inner">
+      <!-- Real heading kept for accessibility/SEO but hidden visually — the
+           logo graphic below carries the name on-screen. -->
+      <h1 class="sr-only">Atamaqtrs</h1>
+      <div class="brand-mark">
+        <!-- Plaster bust photo goes here once you send the file — drop it at
+             assets/logo/plaster.png. Hidden automatically (onerror) until it exists. -->
+        <img class="brand-plaster" src="assets/logo/plaster.png" alt="" aria-hidden="true" onerror="this.style.display='none'" />
+        <img class="brand-logo" src="assets/logo/logo.png" alt="Atamaqtrs" />
+      </div>
+      <!-- Real photo of the reference CRT monitor; the video is layered on top,
+           positioned to match this exact photo's screen rectangle (see
+           .tv-screen in css/style.css for the measured coordinates). -->
+      <div class="tv" id="tv">
+        <img class="tv-photo" src="assets/img/crt-monitor.png" alt="" aria-hidden="true" />
+        <div class="tv-screen" id="tv-screen">
+          <video class="tv-video" id="tv-video" autoplay loop muted playsinline poster="">
+            <source src="assets/video/hero-vhs.mp4" type="video/mp4" />
+          </video>
+          <div class="tv-scanlines"></div>
+          <div class="tv-flicker"></div>
+          <div class="tv-noise"></div>
+          <div class="tv-vignette"></div>
+          <div class="tv-glass"></div>
+          <div class="tv-toggle" id="tv-toggle">
+            <span class="tv-toggle-icon" id="tv-toggle-icon"></span>
+            <span class="tv-toggle-text" id="tv-toggle-text">STOP</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="scroll-hint" data-i18n="hero.enter">Scroll to begin</p>
+  </section>
+
+  <!-- ============ SECTION 2 — ABOUT ============ -->
+  <section id="about" class="panel">
+    <div class="panel-inner">
+      <h2 data-i18n="about.heading">About</h2>
+      <!-- User-supplied "Musician's License" ID card graphic (photo, name,
+           role, signature and stamp already baked into the image). -->
+      <img class="musician-license" src="assets/img/musician-license.png" alt="Atama — Musician's License, producer, South Korea" />
+      <p class="about-body">
+        <span data-i18n="about.body.line1">Hi, I'm Atama — a shoegaze artist, music producer, and engineer.</span>
+        <span data-i18n="about.body.line2">Let me share music where your colors and mine can blend together.</span>
+      </p>
+
+      <h3 data-i18n="about.education.heading">Education</h3>
+      <ul class="education-list">
+        <li data-i18n="about.education.placeholder">School · Major · Years attended</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 3 — MUSIC ============ -->
+  <section id="music" class="panel">
+    <div class="panel-inner">
+      <h2 data-i18n="music.heading">Music</h2>
+
+      <div class="spotify-embed">
+        <iframe
+          style="border-radius:12px"
+          src="https://open.spotify.com/embed/album/5XctrlratRlPUDyK5igOEG?utm_source=generator&theme=0"
+          width="100%"
+          height="352"
+          frameborder="0"
+          allowfullscreen=""
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy">
+        </iframe>
+      </div>
+
+      <a class="more-music-link" href="https://open.spotify.com/artist/5OF9fOOfRVngJJIbkYjCDh" target="_blank" rel="noopener noreferrer" data-i18n="music.more">More Music →</a>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 4 — PORTFOLIO ============ -->
+  <section id="portfolio" class="panel">
+    <div class="panel-inner portfolio-inner">
+      <h2 data-i18n="portfolio.heading">Portfolio</h2>
+      <div id="portfolio-grid" class="portfolio-grid"></div>
+      <a class="portfolio-more-link" href="portfolio.html" data-i18n="portfolio.viewAll">See more portfolio →</a>
+    </div>
+
+    <!-- Detail overlay: shown when URL hash is #/portfolio/<id> -->
+    <div id="portfolio-detail" class="portfolio-detail" hidden>
+      <button type="button" class="portfolio-back" data-i18n="portfolio.back">← Back to list</button>
+      <div class="portfolio-detail-content"></div>
+      <h3 class="portfolio-other-heading" data-i18n="portfolio.other">More work</h3>
+      <div id="portfolio-other-grid" class="portfolio-grid portfolio-grid--small"></div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 5 — COMMISSION ============ -->
+  <section id="commission" class="panel">
+    <div class="panel-inner commission-inner">
+      <!-- The user's own commission-form photo is the background; the actual
+           <input>/<textarea> elements are transparent and positioned to sit
+           exactly on top of its printed ruled lines (coordinates measured
+           from the image's pixels — see .cf-* rules in css/style.css). -->
+      <div class="commission-sheet">
+        <img class="commission-photo" src="assets/img/commission-form.png" alt="Commission / Application form" />
+
+        <form id="commission-form" class="commission-form-overlay" novalidate>
+          <label class="sr-only" for="c-name" data-i18n="commission.name.required">Name (required)</label>
+          <input class="cf-field cf-name" id="c-name" name="name" type="text" required />
+
+          <label class="sr-only" for="c-email" data-i18n="commission.email.required">Email (required)</label>
+          <input class="cf-field cf-email" id="c-email" name="email" type="email" required />
+
+          <label class="sr-only" for="c-company" data-i18n="commission.company">Company (optional)</label>
+          <input class="cf-field cf-company" id="c-company" name="company" type="text" />
+
+          <label class="sr-only" for="c-message" data-i18n="commission.message.required">Request Details (required)</label>
+          <textarea class="cf-field cf-message" id="c-message" name="message" required></textarea>
+        </form>
+      </div>
+
+      <div class="commission-footer">
+        <p id="commission-status" class="commission-status" role="status" aria-live="polite"></p>
+        <button type="submit" form="commission-form" id="commission-submit" data-i18n="commission.submit">Send</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- EmailJS — see README.md "Commission form email setup" before this will actually send mail -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="js/i18n.js?v=7"></script>
+<script src="js/portfolio.js?v=5"></script>
+<script src="js/commission.js?v=2"></script>
+<script src="js/main.js?v=3"></script>
+</body>
+</html>

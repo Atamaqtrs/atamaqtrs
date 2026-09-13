@@ -1,0 +1,50 @@
+[
+  {
+    "id": "work-01",
+    "year": "2024",
+    "category": { "en": "Category", "ja": "カテゴリー" },
+    "title": { "en": "Portfolio Title 1", "ja": "ポートフォリオタイトル1" },
+    "thumbnail": "assets/portfolio/placeholder.svg",
+    "images": ["assets/portfolio/placeholder.svg"],
+    "description": {
+      "en": "Write a description of this work here.",
+      "ja": "この作品についての説明をここに書いてください。"
+    }
+  },
+  {
+    "id": "work-02",
+    "year": "2024",
+    "category": { "en": "Category", "ja": "カテゴリー" },
+    "title": { "en": "Portfolio Title 2", "ja": "ポートフォリオタイトル2" },
+    "thumbnail": "assets/portfolio/placeholder.svg",
+    "images": ["assets/portfolio/placeholder.svg"],
+    "description": {
+      "en": "Write a description of this work here.",
+      "ja": "この作品についての説明をここに書いてください。"
+    }
+  },
+  {
+    "id": "work-03",
+    "year": "2023",
+    "category": { "en": "Category", "ja": "カテゴリー" },
+    "title": { "en": "Portfolio Title 3", "ja": "ポートフォリオタイトル3" },
+    "thumbnail": "assets/portfolio/placeholder.svg",
+    "images": ["assets/portfolio/placeholder.svg"],
+    "description": {
+      "en": "Write a description of this work here.",
+      "ja": "この作品についての説明をここに書いてください。"
+    }
+  },
+  {
+    "id": "work-04",
+    "year": "2023",
+    "category": { "en": "Category", "ja": "カテゴリー" },
+    "title": { "en": "Portfolio Title 4", "ja": "ポートフォリオタイトル4" },
+    "thumbnail": "assets/portfolio/placeholder.svg",
+    "images": ["assets/portfolio/placeholder.svg"],
+    "description": {
+      "en": "Write a description of this work here.",
+      "ja": "この作品についての説明をここに書いてください。"
+    }
+  }
+]

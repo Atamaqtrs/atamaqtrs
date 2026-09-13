@@ -7,9 +7,9 @@
 //      → copy its Template ID.
 //   4. Account → General → copy your Public Key.
 //   5. Paste all three below. Until you do, the form will show an error on submit.
-const EMAILJS_PUBLIC_KEY = "REPLACE_WITH_EMAILJS_PUBLIC_KEY";
-const EMAILJS_SERVICE_ID = "REPLACE_WITH_EMAILJS_SERVICE_ID";
-const EMAILJS_TEMPLATE_ID = "REPLACE_WITH_EMAILJS_TEMPLATE_ID";
+const EMAILJS_PUBLIC_KEY = "TKbZBJqSgurlsXuAc";
+const EMAILJS_SERVICE_ID = "service_bwirl2i";
+const EMAILJS_TEMPLATE_ID = "template_oxx29zu";
 
 function commissionConfigured() {
   return (

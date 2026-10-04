@@ -30,6 +30,8 @@ const translations = {
   "music.more": { en: "More Music →", ja: "もっと聴く →" },
 
   "portfolio.heading": { en: "Portfolio", ja: "ポートフォリオ" },
+  "portfolio.more": { en: "More contents", ja: "More contents" },
+  "portfolio.hint": { en: "Click a monitor", ja: "モニターをクリック" },
   "portfolio.back": { en: "← Back to list", ja: "← 一覧に戻る" },
   "portfolio.other": { en: "More work", ja: "他の作品" },
   "portfolio.viewLink": { en: "Listen / View →", ja: "視聴する →" },

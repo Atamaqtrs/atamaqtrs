@@ -18,7 +18,7 @@ js/commission.js      Commission form → EmailJS
 js/main.js            Scroll-spy for the side dot nav + hero play/pause OSD
 data/portfolio.json   Your portfolio entries (edit this to add/remove work)
 assets/video/         hero-vhs.mp4 — the VHS clip playing inside the CRT
-assets/img/            crt-monitor.png, commission-form.png, profile.jpg
+assets/img/            crt-monitor.png, commission-form.png, mp3-player.png, server-room.png, album-midori-no-yume.jpg
 assets/portfolio/      Portfolio images (thumbnails + detail images)
 assets/logo/           logo.png (wordmark) + plaster.png (bust), stacked
                      above each other in the hero
@@ -44,13 +44,16 @@ land on the right spot otherwise. The top-left OSD badge (■ STOP / ▶ START)
 reflects the video's actual play state and updates on hover/click; the video
 plays with no color filter (its own footage, untouched).
 
-### Music player
-The embed plays the album, "More Music →" links to your artist page. One
-platform limitation worth knowing: **Spotify's iframe cannot be forced into a
-white/light skin** — the `theme=0` URL parameter that used to do this no
-longer has an effect (confirmed by testing). The player itself will keep
-Spotify's own dark widget skin regardless of this site's own white theme;
-it's framed in a white card so at least everything around it stays on-brand.
+### Music — MP3 player
+`assets/img/mp3-player.png` is your MP3-player photo. Its LCD shows only the
+album art + track title; ◀◀ / ▶▶ go to the previous / next track and ▶❚❚
+plays / pauses. Sound comes from a hidden Spotify embed controlled through
+Spotify's iFrame API (`js/music.js`). The track list is `data/music.json`
+(`title`, `artist`, `uri`, `cover`) — to add a song, copy an entry and use its
+Spotify URI (Spotify → Share → hold Alt/Option → "Copy Spotify URI"). Note:
+Spotify embeds play **~30-second previews** unless the listener is logged in
+to Spotify in that browser (then full tracks play). The button/LCD positions
+are %-measured from the photo; re-measure if the photo is swapped.
 
 ### Commission form — filled out on your own form photo
 Same idea as the hero: `assets/img/commission-form.png` is the background,
@@ -78,7 +81,16 @@ reliability, download the `.woff2` yourself and swap the `<link>` in
 `index.html` for a local `@font-face`). Body text uses **Cormorant Garamond**
 from Google Fonts.
 
-### Portfolio content
+### Portfolio — server room
+Scrolling into the Portfolio section turns the whole page dark (it returns to
+white when you scroll away). The works play on the CRT monitors of
+`assets/img/server-room.png` (with CRT + glitch effects): work #1 in
+`data/portfolio.json` → center monitor, #2 → left-middle, #3 → right-top,
+#4 → right-bottom, #5 → left-top. Clicking a monitor opens that work's detail
+window; "More contents" opens a window listing every work (this is where
+works #6 and beyond appear). Monitor outlines are `MONITOR_SLOTS` at the top of
+`js/portfolio.js`.
+
 Edit `data/portfolio.json`. Each entry:
 ```json
 {

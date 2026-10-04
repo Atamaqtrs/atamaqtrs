@@ -50,3 +50,14 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("langchange", updateToggleLabel);
   updateToggleLabel();
 });
+
+// Dark theme while the Portfolio (server room) section is on screen; scrolling
+// up or down out of it restores the light theme.
+document.addEventListener("DOMContentLoaded", () => {
+  const portfolio = document.getElementById("portfolio");
+  if (!portfolio || !document.getElementById("scroll-container")) return;
+  new IntersectionObserver(
+    ([entry]) => document.body.classList.toggle("theme-dark", entry.isIntersecting),
+    { threshold: 0.55 }
+  ).observe(portfolio);
+});

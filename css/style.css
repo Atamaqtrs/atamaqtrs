@@ -21,6 +21,19 @@ body {
   line-height: 1.6;
 }
 
+/* Dark theme: main.js adds body.theme-dark while the Portfolio section (the
+   server room) is on screen, and removes it when the visitor scrolls away. */
+body.theme-dark {
+  --bg: #04060a;
+  --fg: #e6edf5;
+  --fg-dim: #9aa7b6;
+  --accent: #e6edf5;
+  --line: #1a2230;
+}
+body, .panel, h1, h2, h3, a, #lang-switch button, #dot-nav a {
+  transition: background-color 0.6s ease, color 0.6s ease, border-color 0.6s ease;
+}
+
 h1, h2, h3 { font-family: var(--font-display); letter-spacing: 0.03em; margin: 0 0 0.4em; color: var(--fg); }
 h2 { font-size: clamp(1.8rem, 4.5vw, 2.8rem); }
 h3 { font-size: clamp(1.1rem, 2.6vw, 1.5rem); color: var(--fg-dim); }
@@ -321,15 +334,106 @@ a { color: var(--fg); text-decoration-color: var(--fg); }
 }
 
 /* ===== Music ===== */
-/* Spotify's iframe renders its own (currently dark) player skin — that part
-   isn't ours to restyle (cross-origin, and Spotify's theme=0 param no longer
-   forces a light skin on this embed). Framing it in a white padded card at
-   least keeps everything AROUND the player on-brand. */
-.spotify-embed {
-  margin: 24px 0 16px;
-  background: #fff;
-  padding: 12px;
-  border: 1px solid var(--line);
+/* The user's MP3-player photo (assets/img/mp3-player.png, 1099×1431). Every
+   overlay below is positioned as a % of that image's own pixels:
+   LCD  x313–787, y312–647          → left 28.5%, top 21.8%, w 43.1%, h 23.5%
+   ◀◀ centre (373,965), ▶▶ (726,965), ▶❚❚ (555,1130)
+   Re-measure if the photo is ever swapped. */
+#music .panel-inner, .music-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.mp3 {
+  position: relative;
+  width: min(430px, calc(60vh * 1099 / 1431), 100%);
+  aspect-ratio: 1099 / 1431;
+  margin: 8px 0 14px;
+  container-type: inline-size; /* so the LCD text can scale with the player */
+  filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.28));
+}
+.mp3-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  user-select: none;
+}
+/* LCD: only album art + track title, drawn in the screen's dark-blue ink. */
+.mp3-lcd {
+  position: absolute;
+  left: 28.5%;
+  top: 21.8%;
+  width: 43.1%;
+  height: 23.5%;
+  display: flex;
+  align-items: center;
+  gap: 6%;
+  padding: 4% 5%;
+  color: #14202b;
+  text-align: left;
+  pointer-events: none;
+  /* opaque — hides the "MP3" icon / battery / progress bar printed on the photo's screen */
+  background: linear-gradient(to bottom, #97a9b3, #8e9fac);
+  box-shadow: inset 0 0 10px rgba(10, 25, 40, 0.28);
+}
+.mp3-lcd::after { /* faint LCD pixel rows */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(to bottom, rgba(10, 25, 45, 0.07) 0, rgba(10, 25, 45, 0.07) 1px, transparent 1px, transparent 3px);
+}
+.mp3-art {
+  height: 84%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  flex: none;
+  filter: grayscale(1) brightness(1.7) contrast(1.15);
+  mix-blend-mode: multiply;
+  opacity: 0.9;
+  image-rendering: pixelated;
+}
+.mp3-title {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-display);
+  font-size: 4.2cqw;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
+}
+.mp3-btn {
+  position: absolute;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+.mp3-btn:hover { background: radial-gradient(circle, rgba(255, 255, 255, 0.4), transparent 70%); }
+.mp3-btn:active { background: radial-gradient(circle, rgba(0, 0, 0, 0.22), transparent 70%); transform: scale(0.95); }
+.mp3-btn:focus-visible { outline: 2px solid #17222f; outline-offset: -4px; }
+.mp3-prev { left: 28.5%; top: 63.2%; width: 10.9%; height: 8.4%; }
+.mp3-next { left: 60.6%; top: 63.2%; width: 10.9%; height: 8.4%; }
+.mp3-play { left: 43%;   top: 75.1%; width: 15%;   height: 7.7%; }
+/* The Spotify embed that actually produces the sound: kept in the DOM (it
+   must be, to play) but invisible and unclickable. */
+.spotify-hidden {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: 300px;
+  height: 80px;
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
 }
 .more-music-link {
   display: inline-block;
@@ -351,13 +455,205 @@ a { color: var(--fg); text-decoration-color: var(--fg); }
 }
 .portfolio-more-link:hover { opacity: 0.75; }
 
-/* ===== Portfolio ===== */
-/* This section's content (grid, and especially the detail view with images +
-   description + more-work grid) is often taller than one viewport. The default
-   .panel centering pushes overflow above the section's scroll offset, so this
-   section aligns to the top instead — it's the only one that regularly overflows. */
-#portfolio.panel { justify-content: flex-start; }
-.portfolio-inner { max-width: 960px; }
+/* ===== Portfolio — the server room ===== */
+#portfolio.panel {
+  padding-top: 64px;
+  padding-bottom: 20px;
+  gap: 6px;
+}
+#portfolio h2 { margin: 0; }
+/* Stage = the server-room photo (1672×941) with the monitors laid on top of
+   its screens as %-positioned overlays (generated by js/portfolio.js). */
+.server-stage {
+  position: relative;
+  width: min(100%, calc((100vh - 190px) * 1672 / 941));
+  aspect-ratio: 1672 / 941;
+}
+.server-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  user-select: none;
+}
+.server-stage::after { /* feather the photo's edges into the page */
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 50px 28px var(--bg);
+  pointer-events: none;
+  z-index: 5;
+}
+.stage-caption {
+  margin: 0;
+  min-height: 1.4em;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  color: var(--fg-dim);
+  text-align: center;
+}
+.more-contents {
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--fg);
+  color: var(--fg);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0.14em;
+  padding: 4px 2px;
+  cursor: pointer;
+  text-shadow: 0 0 10px rgba(130, 180, 255, 0.5);
+}
+.more-contents:hover { opacity: 0.75; }
+
+/* --- CRT monitor overlay --- */
+.monitor {
+  position: absolute;
+  display: block;
+  overflow: hidden;
+  isolation: isolate;
+  cursor: pointer;
+  z-index: 3;
+}
+.monitor > span {
+  position: absolute;
+  inset: 0;
+  display: block;
+  pointer-events: none;
+}
+.m-img {
+  background: var(--img) center / cover no-repeat;
+  filter: saturate(0.8) contrast(1.12) brightness(0.88);
+  animation: m-jitter var(--p) steps(1) infinite var(--d);
+}
+.m-ghost {
+  background: var(--img) center / cover no-repeat;
+  mix-blend-mode: screen;
+  opacity: 0;
+}
+.m-ghost-r { filter: url(#ch-r); animation: m-ghost-a var(--p) steps(1) infinite var(--d); }
+.m-ghost-c { filter: url(#ch-c); animation: m-ghost-b var(--p) steps(1) infinite var(--d); }
+.m-tint { background: rgba(110, 165, 255, 0.28); mix-blend-mode: overlay; }
+.m-scan {
+  background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.32) 0, rgba(0, 0, 0, 0.32) 1px, transparent 1px, transparent 3px);
+  animation: m-flicker 0.15s steps(2) infinite;
+}
+.m-bar { /* slow rolling brightness band, like a refresh line */
+  background: linear-gradient(to bottom, transparent, rgba(190, 220, 255, 0.16), transparent);
+  height: 35%;
+  bottom: auto;
+  animation: m-roll 5s linear infinite var(--d);
+}
+.m-vig { box-shadow: inset 0 0 26px 8px rgba(0, 0, 12, 0.75); }
+.m-ch {
+  inset: auto;
+  top: 7%;
+  left: 7%;
+  font-family: var(--font-display);
+  font-size: clamp(6px, 0.85vw, 12px);
+  letter-spacing: 0.1em;
+  color: #cfe6ff;
+  text-shadow: 0 0 4px rgba(120, 180, 255, 0.9);
+  opacity: 0.85;
+}
+.monitor:hover .m-img,
+.monitor:focus-visible .m-img { filter: saturate(1) contrast(1.1) brightness(1.15); }
+.monitor:hover .m-ghost-r,
+.monitor:focus-visible .m-ghost-r { animation: m-ghost-a 0.5s steps(1) infinite; }
+.monitor:hover .m-ghost-c,
+.monitor:focus-visible .m-ghost-c { animation: m-ghost-b 0.5s steps(1) infinite; }
+.monitor:hover .m-img,
+.monitor:focus-visible .m-img { animation: m-jitter 0.5s steps(1) infinite; }
+.monitor:focus-visible { outline: none; }
+
+/* Mostly steady; a short burst of displacement / RGB-split / hue shift near
+   the end of each (per-monitor) cycle. */
+@keyframes m-jitter {
+  0%, 88%, 100% { transform: none; }
+  89% { transform: translateX(-3%) skewX(4deg); filter: saturate(1.4) contrast(1.4) brightness(1.1) hue-rotate(35deg); }
+  90% { transform: translateX(4%); }
+  91% { transform: translate(-2%, 2%) scaleY(1.06); filter: saturate(0.4) contrast(1.6) brightness(1.3); }
+  92% { transform: translateX(2%) skewX(-5deg); }
+  93% { transform: none; }
+  95% { transform: translateY(-3%); }
+  96% { transform: none; }
+}
+@keyframes m-ghost-a {
+  0%, 88%, 96%, 100% { opacity: 0; transform: none; }
+  89% { opacity: 0.85; transform: translateX(-5%); }
+  91% { opacity: 0.85; transform: translateX(3%); }
+  93% { opacity: 0.7; transform: translateX(-2%); }
+}
+@keyframes m-ghost-b {
+  0%, 88%, 96%, 100% { opacity: 0; transform: none; }
+  89% { opacity: 0.85; transform: translateX(5%); }
+  91% { opacity: 0.85; transform: translateX(-3%); }
+  93% { opacity: 0.7; transform: translateX(2%); }
+}
+@keyframes m-flicker {
+  0% { opacity: 1; }
+  100% { opacity: 0.88; }
+}
+@keyframes m-roll {
+  0% { transform: translateY(-120%); }
+  100% { transform: translateY(320%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .m-img, .m-ghost, .m-scan, .m-bar { animation: none !important; }
+}
+
+/* --- Windows (More contents list + work detail) --- */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal[hidden] { display: none; }
+body.modal-open #scroll-container { overflow: hidden; }
+#lang-switch { z-index: 150; }
+.modal-window {
+  --bg: #07090d;
+  --fg: #e6edf5;
+  --fg-dim: #9aa7b6;
+  --accent: #e6edf5;
+  --line: #243040;
+  position: relative;
+  width: min(960px, 100%);
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  padding: 28px;
+  color: var(--fg);
+  background:
+    repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 0, rgba(255, 255, 255, 0.025) 1px, transparent 1px, transparent 3px),
+    #07090d;
+  border: 1px solid #2a3544;
+  box-shadow: 0 0 0 1px #000, 0 0 50px rgba(110, 160, 255, 0.2);
+}
+.modal-close {
+  position: sticky;
+  top: 0;
+  float: right;
+  z-index: 2;
+  margin: -12px -12px 0 12px;
+  background: #07090d;
+  border: 1px solid #2a3544;
+  color: var(--fg);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+}
+.modal-close:hover { background: var(--fg); color: #07090d; }
+.modal-title { margin: 0 0 4px; color: var(--fg); }
+
 .portfolio-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -383,6 +679,7 @@ a { color: var(--fg); text-decoration-color: var(--fg); }
   text-align: left;
   display: flex;
   flex-direction: column;
+  text-decoration: none;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .portfolio-card:nth-child(4n+1) { transform: rotate(-2.5deg); }
@@ -407,14 +704,16 @@ a { color: var(--fg); text-decoration-color: var(--fg); }
   font-family: var(--font-body);
   font-style: italic;
 }
-.portfolio-card .p-title { color: var(--fg); font-size: 1rem; }
-.portfolio-card .p-meta { color: var(--fg-dim); font-size: 0.8rem; }
+/* The polaroid is always white, so its text is fixed dark (not theme-driven). */
+.portfolio-card .p-title { color: #111; font-size: 1rem; }
+.portfolio-card .p-meta { color: #555; font-size: 0.8rem; }
 
 .portfolio-detail {
   max-width: 960px;
   width: 100%;
   margin-top: 12px;
 }
+.modal.portfolio-detail { max-width: none; margin-top: 0; width: auto; }
 .portfolio-back {
   background: none;
   border: none;
@@ -426,11 +725,15 @@ a { color: var(--fg); text-decoration-color: var(--fg); }
   font-size: 0.9rem;
 }
 .portfolio-back:hover { color: var(--accent); }
+.modal-close.portfolio-back { padding: 0; margin: -12px -12px 0 12px; background: #07090d; border: 1px solid #2a3544; color: var(--fg); font-family: var(--font-display); font-size: 0.9rem; }
+.modal-close.portfolio-back:hover { background: var(--fg); color: #07090d; }
 .portfolio-detail-content img {
   width: 100%;
+  max-height: 62vh;
+  object-fit: contain;
   display: block;
   margin-bottom: 12px;
-  background: #eee;
+  background: #000;
 }
 .portfolio-detail-content .p-desc { color: var(--fg-dim); margin: 16px 0 32px; white-space: pre-line; }
 .portfolio-detail-content .p-link {

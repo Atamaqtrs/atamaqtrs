@@ -88,8 +88,9 @@ white when you scroll away). The works play on the CRT monitors of
 `data/portfolio.json` → center monitor, #2 → left-middle, #3 → right-top,
 #4 → right-bottom, #5 → left-top. Clicking a monitor opens that work's detail
 window; "More contents" opens a window listing every work (this is where
-works #6 and beyond appear). Monitor outlines are `MONITOR_SLOTS` at the top of
-`js/portfolio.js`.
+works #6 and beyond appear). Monitor outlines (traced polygons) are `MONITOR_SLOTS` at the top of
+`js/portfolio.js`. Monitors 6–8 (and any monitor without a work) are "no signal"
+screens: clicking one shows a color-bar test pattern with a NO SIGNAL message.
 
 Edit `data/portfolio.json`. Each entry:
 ```json

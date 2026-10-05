@@ -95,3 +95,17 @@ document.addEventListener("DOMContentLoaded", () => {
   center();
   window.addEventListener("resize", center);
 });
+
+// Easter egg: poke the plaster bust in the hero → it gets angry for a moment.
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("plaster-btn");
+  if (!btn) return;
+  let timer;
+  btn.addEventListener("click", () => {
+    btn.classList.remove("angry");
+    void btn.offsetWidth; // restart the pop/shake animations on repeat clicks
+    btn.classList.add("angry");
+    clearTimeout(timer);
+    timer = setTimeout(() => btn.classList.remove("angry"), 2600);
+  });
+});

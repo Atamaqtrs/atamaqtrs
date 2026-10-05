@@ -143,6 +143,99 @@ a { color: var(--fg); text-decoration-color: var(--fg); }
   height: auto;
   object-fit: contain;
 }
+
+/* ===== Easter egg: the plaster bust ===== */
+.plaster-btn {
+  position: relative;
+  display: block;
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.plaster-btn:focus-visible { outline: 2px dashed var(--fg); outline-offset: 4px; }
+.plaster-btn .brand-plaster { display: block; transform-origin: 50% 90%; }
+.plaster-btn.angry .brand-plaster {
+  /* white plaster flushes red; shakes in jerky 2-step motion */
+  filter: sepia(1) saturate(9) hue-rotate(-46deg) brightness(0.95);
+  animation: bust-shake 0.18s steps(2) infinite;
+}
+@keyframes bust-shake {
+  0%   { transform: translate(-2px, 0) rotate(-5deg) scale(1.1); }
+  100% { transform: translate(2px, -1px) rotate(5deg) scale(1.1); }
+}
+
+/* Pixel anger vein (the manga 💢): four little corner brackets, 3px "pixels". */
+.anger-mark {
+  position: absolute;
+  top: -4px;
+  left: -10px;
+  width: 3px;
+  height: 3px;
+  background: #e32424;
+  box-shadow:
+    3px 0 #e32424, 0 3px #e32424,
+    12px 0 #e32424, 15px 0 #e32424, 15px 3px #e32424,
+    0 12px #e32424, 0 15px #e32424, 3px 15px #e32424,
+    15px 12px #e32424, 12px 15px #e32424, 15px 15px #e32424;
+  opacity: 0;
+  pointer-events: none;
+}
+.plaster-btn.angry .anger-mark { opacity: 1; animation: anger-blink 0.3s steps(1) infinite; }
+@keyframes anger-blink { 50% { opacity: 0.25; } }
+
+/* Pixel speech bubble: a plain rectangle whose four edge-shadows leave notched
+   corners (the classic 8-bit dialogue box), plus a stair-stepped tail. */
+.pixel-bubble {
+  position: absolute;
+  left: calc(100% + 16px);
+  top: -2px;
+  width: max-content;
+  max-width: min(132px, calc(50vw - 56px));
+  padding: 8px 10px;
+  background: #fff;
+  color: #000;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  line-height: 1.3;
+  text-align: left;
+  letter-spacing: 0;
+  box-shadow: 0 -4px 0 0 #000, 0 4px 0 0 #000, -4px 0 0 0 #000, 4px 0 0 0 #000;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 5;
+}
+.pixel-bubble::before,
+.pixel-bubble::after { content: ""; position: absolute; width: 4px; height: 4px; }
+.pixel-bubble::before { /* tail outline (black), a left-pointing stair wedge */
+  left: -16px;
+  top: 16px;
+  background: #000;
+  box-shadow: 4px -4px #000, 4px 4px #000, 8px -8px #000, 8px 8px #000;
+}
+.pixel-bubble::after { /* tail fill (white) — also opens a gap in the bubble's border */
+  left: -12px;
+  top: 16px;
+  width: 12px;
+  background: #fff;
+  box-shadow: 4px -4px #fff, 4px 4px #fff, 8px -8px #fff, 8px 8px #fff;
+}
+.plaster-btn.angry .pixel-bubble {
+  visibility: visible;
+  animation: bubble-pop 0.25s steps(3) both;
+}
+@keyframes bubble-pop {
+  0%   { transform: scale(0.4); transform-origin: 0 50%; }
+  100% { transform: scale(1);   transform-origin: 0 50%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .plaster-btn.angry .brand-plaster,
+  .plaster-btn.angry .anger-mark,
+  .plaster-btn.angry .pixel-bubble { animation: none; }
+}
+
 .brand-logo {
   width: min(280px, 60vw);
   height: auto;

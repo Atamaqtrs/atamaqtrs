@@ -7,6 +7,7 @@ const translations = {
   "nav.portfolio": { en: "Portfolio", ja: "ポートフォリオ" },
   "nav.commission": { en: "Commission", ja: "コミッション" },
 
+  "easter.plaster": { en: "Don't touch my head!!", ja: "頭を触るな！！" },
   "hero.enter": { en: "Scroll to begin", ja: "スクロールして開始" },
   "hero.start": { en: "START", ja: "再生" },
   "hero.stop": { en: "STOP", ja: "停止" },

@@ -186,6 +186,38 @@ a { color: var(--fg); text-decoration-color: var(--fg); }
 .plaster-btn.angry .anger-mark { opacity: 1; animation: anger-blink 0.3s steps(1) infinite; }
 @keyframes anger-blink { 50% { opacity: 0.25; } }
 
+/* Rage (4+ clicks): deeper red, two more veins, harder shake, steam puffs. */
+.anger-mark.extra { opacity: 0; animation: none; }
+.extra-a { top: -16px; left: 24px; }
+.extra-b { top: 26px; left: -18px; }
+.plaster-btn.rage .anger-mark.extra { opacity: 1; animation: anger-blink 0.22s steps(1) infinite; }
+.plaster-btn.rage .brand-plaster {
+  filter: sepia(1) saturate(16) hue-rotate(-50deg) brightness(0.78) contrast(1.35) drop-shadow(0 0 5px #ff2a2a);
+  animation: bust-rage 0.1s steps(2) infinite;
+}
+@keyframes bust-rage {
+  0%   { transform: translateX(-6px) rotate(-9deg) scale(1.2); }
+  100% { transform: translateX(6px)  rotate(9deg)  scale(1.2); }
+}
+.plaster-btn.rage .pixel-bubble { color: #c40000; }
+.plaster-btn.rage .pixel-bubble { max-width: min(150px, calc(50vw - 56px)); }
+/* square "pixel" steam puffs fired off the head (spawned by main.js) */
+.puff {
+  position: absolute;
+  top: 6px;
+  width: var(--s);
+  height: var(--s);
+  background: #fff;
+  box-shadow: 0 0 0 2px #000;
+  pointer-events: none;
+  z-index: 4;
+  animation: puff-fly 0.8s steps(8) forwards;
+}
+@keyframes puff-fly {
+  0%   { transform: translate(0, 0) scale(0.6); opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)) scale(1.7); opacity: 0; }
+}
+
 /* Pixel speech bubble: a plain rectangle whose four edge-shadows leave notched
    corners (the classic 8-bit dialogue box), plus a stair-stepped tail. */
 .pixel-bubble {
@@ -233,7 +265,10 @@ a { color: var(--fg); text-decoration-color: var(--fg); }
 @media (prefers-reduced-motion: reduce) {
   .plaster-btn.angry .brand-plaster,
   .plaster-btn.angry .anger-mark,
+  .plaster-btn.rage .brand-plaster,
+  .plaster-btn.rage .anger-mark.extra,
   .plaster-btn.angry .pixel-bubble { animation: none; }
+  .puff { display: none; }
 }
 
 .brand-logo {

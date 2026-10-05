@@ -97,15 +97,49 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Easter egg: poke the plaster bust in the hero → it gets angry for a moment.
+// Poke it 4+ times in a row and it really loses it (red, 3 veins, steam puffs).
 document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("plaster-btn");
-  if (!btn) return;
-  let timer;
+  const bubble = document.getElementById("plaster-bubble");
+  if (!btn || !bubble) return;
+  let clicks = 0;
+  let calmTimer;
+  let puffTimer;
+
+  function spawnPuffs() {
+    for (let i = 0; i < 2; i++) {
+      const puff = document.createElement("span");
+      puff.className = "puff";
+      const size = 5 + Math.random() * 7;
+      puff.style.cssText =
+        `left:${18 + Math.random() * 28}px;--s:${size.toFixed(1)}px;` +
+        `--dx:${(Math.random() * 120 - 60).toFixed(0)}px;--dy:${(-45 - Math.random() * 70).toFixed(0)}px;`;
+      puff.addEventListener("animationend", () => puff.remove());
+      btn.appendChild(puff);
+    }
+  }
+
+  function calmDown() {
+    btn.classList.remove("angry", "rage");
+    clearInterval(puffTimer);
+    puffTimer = null;
+    clicks = 0;
+  }
+
   btn.addEventListener("click", () => {
-    btn.classList.remove("angry");
+    clicks++;
+    const rage = clicks >= 4;
+    btn.classList.remove("angry", "rage");
     void btn.offsetWidth; // restart the pop/shake animations on repeat clicks
     btn.classList.add("angry");
-    clearTimeout(timer);
-    timer = setTimeout(() => btn.classList.remove("angry"), 2600);
+    if (rage) btn.classList.add("rage");
+
+    const key = rage ? "easter.plaster2" : "easter.plaster";
+    bubble.dataset.i18n = key; // keeps the text right if the language is switched meanwhile
+    bubble.textContent = t(key, document.documentElement.lang || "en");
+
+    if (rage && !puffTimer) puffTimer = setInterval(spawnPuffs, 110);
+    clearTimeout(calmTimer);
+    calmTimer = setTimeout(calmDown, rage ? 3400 : 2600);
   });
 });

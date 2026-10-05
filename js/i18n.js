@@ -8,6 +8,7 @@ const translations = {
   "nav.commission": { en: "Commission", ja: "コミッション" },
 
   "easter.plaster": { en: "Don't touch my head!!", ja: "頭を触るな！！" },
+  "easter.plaster2": { en: "I said don't touch my head!!!!!", ja: "頭を触るなって言ったでしょ！！！！！" },
   "hero.enter": { en: "Scroll to begin", ja: "スクロールして開始" },
   "hero.start": { en: "START", ja: "再生" },
   "hero.stop": { en: "STOP", ja: "停止" },

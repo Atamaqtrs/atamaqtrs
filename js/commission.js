@@ -19,6 +19,19 @@ function commissionConfigured() {
   );
 }
 
+// Spam guards (no backend to lean on): a honeypot field, and a cooldown so one
+// browser can't fire the form repeatedly. Real throttling/allow-listing lives in
+// the EmailJS dashboard (see README "Security").
+const COOLDOWN_MS = 60 * 1000;
+const LAST_SENT_KEY = "commission-last-sent";
+function lastSentAt() {
+  try { return Number(localStorage.getItem(LAST_SENT_KEY)) || 0; } catch { return 0; }
+}
+function markSent() {
+  try { localStorage.setItem(LAST_SENT_KEY, String(Date.now())); } catch { /* private mode: skip */ }
+}
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 function setStatus(el, message, kind) {
   el.textContent = message;
   el.classList.remove("error", "success");
@@ -45,7 +58,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const company = form.company.value.trim();
     const message = form.message.value.trim();
 
-    if (!name || !email || !message) {
+    // Honeypot filled → a bot. Pretend it worked, send nothing.
+    if (form.website && form.website.value) {
+      form.reset();
+      form.hidden = true;
+      setStatus(status, t("commission.success", lang), "success");
+      return;
+    }
+
+    if (!name || !email || !message || !EMAIL_RE.test(email)) {
       setStatus(status, t("commission.error.required", lang), "error");
       return;
     }
@@ -53,6 +74,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!commissionConfigured()) {
       setStatus(status, t("commission.error", lang), "error");
       console.warn("EmailJS is not configured yet — see js/commission.js top of file.");
+      return;
+    }
+
+    if (Date.now() - lastSentAt() < COOLDOWN_MS) {
+      setStatus(status, t("commission.wait", lang), "error");
       return;
     }
 
@@ -66,6 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
         company: company || "-",
         message
       });
+      markSent();
       form.reset();
       form.hidden = true;
       setStatus(status, t("commission.success", lang), "success");

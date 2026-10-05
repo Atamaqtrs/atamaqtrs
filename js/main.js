@@ -1,3 +1,9 @@
+// Clickjacking guard: this site can't set an X-Frame-Options header on GitHub
+// Pages, so if it ever gets loaded inside someone else's frame, break out of it.
+if (window.top !== window.self) {
+  try { window.top.location = window.self.location; } catch { /* cross-origin top: blocked */ }
+}
+
 // Highlights the active dot-nav item as the visitor scrolls between sections.
 document.addEventListener("DOMContentLoaded", () => {
   const panels = document.querySelectorAll(".panel");
@@ -79,4 +85,13 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     { threshold: 0.55 }
   ).observe(portfolio);
+});
+
+// Phones: the studio is wider than the screen — start it centred on the middle monitor.
+document.addEventListener("DOMContentLoaded", () => {
+  const wrap = document.getElementById("stage-scroll");
+  if (!wrap) return;
+  const center = () => { wrap.scrollLeft = (wrap.scrollWidth - wrap.clientWidth) / 2; };
+  center();
+  window.addEventListener("resize", center);
 });

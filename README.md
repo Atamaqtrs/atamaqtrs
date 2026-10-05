@@ -143,6 +143,31 @@ Edit the EN/JA strings directly in `js/i18n.js` under `about.body` and
 `about.education.placeholder` (or turn the education list into multiple
 `<li>` items in `index.html` if you have more than one line).
 
+## Security
+This is a static site (no server, no database, no login), so there is very little
+to "hack". What is in place / what to do:
+
+**In the code**
+- Content-Security-Policy `<meta>` on both pages: only this site's own files plus
+  Google/cdnfonts (fonts), EmailJS (form) and Spotify (player) may load or run.
+  (`'unsafe-eval'` is allowed only because Spotify's iFrame API script needs it.)
+- The EmailJS script is pinned to an exact version with an SRI hash, so a
+  tampered CDN file is refused by the browser.
+- All text from `data/portfolio.json` is HTML-escaped before display; external
+  links use `rel="noopener noreferrer"`; a frame-buster stops other sites from
+  embedding this one (clickjacking).
+- Commission form: hidden honeypot field, 60-second cooldown per browser,
+  input length limits and email-format check.
+- No secrets in the repo (only EmailJS's *public* key, which is meant to be public).
+
+**You should do these (can't be done from code)**
+1. **GitHub 2FA** — github.com → Settings → Password and authentication → turn on
+   two-factor. Whoever controls your GitHub account controls the site.
+2. **EmailJS dashboard** — Account → Security: restrict allowed origins/domains to
+   `atamaqtrs.github.io`, and keep your *private* key private (never paste it
+   anywhere). Also check the template's monthly send limit so spam can't use it up.
+3. Optional: add reCAPTCHA in EmailJS if spam ever shows up.
+
 ## Running locally
 
 No build step — just open `index.html` in a browser, or serve the folder:

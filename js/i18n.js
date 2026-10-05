@@ -56,8 +56,12 @@ const translations = {
     ja: "送信に失敗しました。しばらくしてからもう一度お試しください。"
   },
   "commission.error.required": {
-    en: "Please fill in all required fields.",
-    ja: "必須項目をすべて入力してください。"
+    en: "Please fill in all required fields (with a valid email).",
+    ja: "必須項目をすべて入力してください（メールアドレスは正しい形式で）。"
+  },
+  "commission.wait": {
+    en: "You just sent a message — please wait a minute before sending another.",
+    ja: "送信したばかりです。1分ほど待ってからもう一度お試しください。"
   }
 };
 

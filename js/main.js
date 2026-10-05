@@ -51,13 +51,32 @@ document.addEventListener("DOMContentLoaded", () => {
   updateToggleLabel();
 });
 
-// Dark theme while the Portfolio (server room) section is on screen; scrolling
-// up or down out of it restores the light theme.
+// Portfolio entrance: the page goes dark and the studio photo is unlit; after a
+// beat its lights flicker on (.lights-on on the stage → the lit photo fades in
+// and the monitors power up), then the page returns to the light theme.
+// Leaving the section resets everything so the scene replays on the next visit.
 document.addEventListener("DOMContentLoaded", () => {
   const portfolio = document.getElementById("portfolio");
-  if (!portfolio || !document.getElementById("scroll-container")) return;
+  const stage = document.getElementById("server-stage");
+  if (!portfolio || !stage || !document.getElementById("scroll-container")) return;
+
+  const LIGHTS_ON_AT = 900;   // ms after entering: lights start flickering on
+  const LIGHT_THEME_AT = 1600; // ms after entering: theme flips back to light
+  let timers = [];
+
   new IntersectionObserver(
-    ([entry]) => document.body.classList.toggle("theme-dark", entry.isIntersecting),
+    ([entry]) => {
+      timers.forEach(clearTimeout);
+      timers = [];
+      if (entry.isIntersecting) {
+        document.body.classList.add("theme-dark");
+        timers.push(setTimeout(() => stage.classList.add("lights-on"), LIGHTS_ON_AT));
+        timers.push(setTimeout(() => document.body.classList.remove("theme-dark"), LIGHT_THEME_AT));
+      } else {
+        stage.classList.remove("lights-on");
+        document.body.classList.remove("theme-dark");
+      }
+    },
     { threshold: 0.55 }
   ).observe(portfolio);
 });

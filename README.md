@@ -18,7 +18,7 @@ js/commission.js      Commission form → EmailJS
 js/main.js            Scroll-spy for the side dot nav + hero play/pause OSD
 data/portfolio.json   Your portfolio entries (edit this to add/remove work)
 assets/video/         hero-vhs.mp4 — the VHS clip playing inside the CRT
-assets/img/            crt-monitor.png, commission-form.png, mp3-player.png, server-room.png, album-midori-no-yume.jpg
+assets/img/            crt-monitor.png, commission-form.png, mp3-player.png, studio-dark.jpg, studio-lit.jpg, album-midori-no-yume.jpg
 assets/portfolio/      Portfolio images (thumbnails + detail images)
 assets/logo/           logo.png (wordmark) + plaster.png (bust), stacked
                      above each other in the hero
@@ -81,16 +81,22 @@ reliability, download the `.woff2` yourself and swap the `<link>` in
 `index.html` for a local `@font-face`). Body text uses **Cormorant Garamond**
 from Google Fonts.
 
-### Portfolio — server room
-Scrolling into the Portfolio section turns the whole page dark (it returns to
-white when you scroll away). The works play on the CRT monitors of
-`assets/img/server-room.png` (with CRT + glitch effects): work #1 in
-`data/portfolio.json` → center monitor, #2 → left-middle, #3 → right-top,
-#4 → right-bottom, #5 → left-top. Clicking a monitor opens that work's detail
-window; "More contents" opens a window listing every work (this is where
-works #6 and beyond appear). Monitor outlines (traced polygons) are `MONITOR_SLOTS` at the top of
-`js/portfolio.js`. Monitors 6–8 (and any monitor without a work) are "no signal"
-screens: clicking one shows a color-bar test pattern with a NO SIGNAL message.
+### Portfolio — the studio
+Scrolling into the Portfolio section plays a short scene: the page goes dark and
+`assets/img/studio-dark.jpg` (lights off) shows; ~1s later the lights flicker on
+(`studio-lit.jpg` fades in), the page returns to the light theme, and the CRT
+monitors power up one by one, each playing a work (with CRT + glitch effects).
+Leaving the section resets it, so it replays next time. Timing: `LIGHTS_ON_AT` /
+`LIGHT_THEME_AT` in `js/main.js`.
+
+Work #1 in `data/portfolio.json` → center monitor, #2 → far-left upper,
+#3 → far-right lower, #4 → the hanging one between left and center, #5 → the
+hanging one at top center. Clicking a monitor opens that work's detail window;
+"More contents" opens a window listing every work (works #6 and beyond appear
+only there). Monitors without a work (the other three) are "no signal" screens:
+clicking one shows a color-bar test pattern with a NO SIGNAL message. Monitor
+outlines (traced polygons) are `MONITOR_SLOTS` at the top of `js/portfolio.js`;
+re-trace them if the studio photos are swapped.
 
 Edit `data/portfolio.json`. Each entry:
 ```json

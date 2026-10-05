@@ -97,7 +97,8 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Easter egg: poke the plaster bust in the hero → it gets angry for a moment.
-// Poke it 4+ times in a row and it really loses it (red, 3 veins, steam puffs).
+// Poke it 4+ times (clicks add up even with pauses in between — it never forgets
+// until the page is reloaded) and it really loses it (red, 3 veins, steam puffs).
 document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("plaster-btn");
   const bubble = document.getElementById("plaster-bubble");
@@ -123,7 +124,6 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.classList.remove("angry", "rage");
     clearInterval(puffTimer);
     puffTimer = null;
-    clicks = 0;
   }
 
   btn.addEventListener("click", () => {

@@ -545,7 +545,7 @@ a { color: var(--fg); text-decoration-color: var(--fg); }
 }
 .m-img {
   background: var(--img) center / cover no-repeat;
-  filter: saturate(0.8) contrast(1.12) brightness(0.88);
+  filter: saturate(0.95) contrast(1.05) brightness(1.2);
   animation: m-jitter var(--p) steps(1) infinite var(--d);
 }
 .m-ghost {
@@ -555,9 +555,9 @@ a { color: var(--fg); text-decoration-color: var(--fg); }
 }
 .m-ghost-r { filter: url(#ch-r); animation: m-ghost-a var(--p) steps(1) infinite var(--d); }
 .m-ghost-c { filter: url(#ch-c); animation: m-ghost-b var(--p) steps(1) infinite var(--d); }
-.m-tint { background: rgba(110, 165, 255, 0.28); mix-blend-mode: overlay; }
+.m-tint { background: rgba(110, 165, 255, 0.14); mix-blend-mode: overlay; }
 .m-scan {
-  background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.32) 0, rgba(0, 0, 0, 0.32) 1px, transparent 1px, transparent 3px);
+  background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0, rgba(0, 0, 0, 0.2) 1px, transparent 1px, transparent 3px);
   animation: m-flicker 0.15s steps(2) infinite;
 }
 .m-bar { /* slow rolling brightness band, like a refresh line */
@@ -566,7 +566,7 @@ a { color: var(--fg); text-decoration-color: var(--fg); }
   bottom: auto;
   animation: m-roll 5s linear infinite var(--d);
 }
-.m-vig { box-shadow: inset 0 0 26px 8px rgba(0, 0, 12, 0.75); }
+.m-vig { box-shadow: inset 0 0 20px 4px rgba(0, 0, 12, 0.5); }
 .m-ch {
   inset: auto;
   top: 10%;
@@ -579,7 +579,7 @@ a { color: var(--fg); text-decoration-color: var(--fg); }
   opacity: 0.85;
 }
 .monitor:hover .m-img,
-.monitor:focus-visible .m-img { filter: saturate(1) contrast(1.1) brightness(1.15); }
+.monitor:focus-visible .m-img { filter: saturate(1.05) contrast(1.05) brightness(1.4); }
 .monitor:hover .m-ghost-r,
 .monitor:focus-visible .m-ghost-r { animation: m-ghost-a 0.5s steps(1) infinite; }
 .monitor:hover .m-ghost-c,

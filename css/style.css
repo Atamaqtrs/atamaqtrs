@@ -187,7 +187,8 @@ a { color: var(--fg); text-decoration-color: var(--fg); }
 @keyframes anger-blink { 50% { opacity: 0.25; } }
 
 /* Rage (4+ clicks): deeper red, two more veins, harder shake, steam puffs. */
-.anger-mark.extra { opacity: 0; animation: none; }
+.plaster-btn .anger-mark.extra,
+.plaster-btn.angry .anger-mark.extra { opacity: 0; animation: none; } /* only the first vein until rage */
 .extra-a { top: -16px; left: 24px; }
 .extra-b { top: 26px; left: -18px; }
 .plaster-btn.rage .anger-mark.extra { opacity: 1; animation: anger-blink 0.22s steps(1) infinite; }
